@@ -22,10 +22,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.insa.mygameslist.R
 import com.insa.mygameslist.data.Game
+import com.insa.mygameslist.data.IGDB
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun GameCardList(src:Map<Long,Game>, modifier: Modifier,backStack: SnapshotStateList<Any>){
+fun GameDetail(backStack: SnapshotStateList<Any>,id:Long, src:Map<Long,Game>){
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -34,7 +35,7 @@ fun GameCardList(src:Map<Long,Game>, modifier: Modifier,backStack: SnapshotState
                     titleContentColor = Color.Black,
                 ),
                 title = {
-                    Text("My Games List") },
+                    Text("${src.get(id)!!.name}") },
                 navigationIcon = {
                     IconButton(onClick = { backStack.removeLastOrNull() }) {
                         Icon(
@@ -50,12 +51,8 @@ fun GameCardList(src:Map<Long,Game>, modifier: Modifier,backStack: SnapshotState
         contentWindowInsets = WindowInsets.systemBars,
         modifier = Modifier.fillMaxSize()
     ) { innerPadding ->
-            LazyColumn(Modifier.padding(innerPadding)) {
-                items(src.values.toList()) {
-                    Spacer(Modifier.padding(2.dp))
-                    GameCard(it, backStack)
-                    Spacer(Modifier.padding(2.dp))
-                }
-            }
-        }
+        Text(
+            text = "Product ${id} ",
+            modifier = Modifier.padding(innerPadding))
+    }
 }

@@ -8,7 +8,7 @@ import com.insa.mygameslist.R
 object IGDB {
 
     lateinit var covers: Map<Long,Cover>
-    lateinit var games: List<Game>
+    lateinit var games: Map<Long,Game>
     lateinit var genres: Map<Long,Genre>
     lateinit var platform_logos : List<Plat_logo>
     lateinit var platforms : List<Plat>
@@ -35,7 +35,7 @@ object IGDB {
             object : TypeToken<List<Plat>>() {}.type
         )
         covers = coversFromJson.associateBy{it.id}
-        games = GamesFromJson
+        games = GamesFromJson.associateBy { it.id }
         genres = GenresFromJson.associateBy { it.id }
         platform_logos = Plats_logoFromJson
         platforms = PlatsFromJson
