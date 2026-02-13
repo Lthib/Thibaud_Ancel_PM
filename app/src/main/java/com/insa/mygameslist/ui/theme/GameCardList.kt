@@ -38,7 +38,7 @@ fun GameCardList(src:Map<Long,Game>, modifier: Modifier,backStack: SnapshotState
                 navigationIcon = {
                     IconButton(onClick = { backStack.removeLastOrNull() }) {
                         Icon(
-                            painter = painterResource(R.drawable.backarrow),
+                            painter = painterResource(R.drawable.baseline_arrow_back_24),
                             contentDescription = "Localized description"
                         )
                     }
