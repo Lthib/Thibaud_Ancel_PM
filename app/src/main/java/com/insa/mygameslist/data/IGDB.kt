@@ -10,8 +10,8 @@ object IGDB {
     lateinit var covers: Map<Long,Cover>
     lateinit var games: Map<Long,Game>
     lateinit var genres: Map<Long,Genre>
-    lateinit var platform_logos : List<Plat_logo>
-    lateinit var platforms : List<Plat>
+    lateinit var platform_logos : Map<Long,Plat_logo>
+    lateinit var platforms : Map<Long,Plat>
 
     fun load(context: Context) {
         val coversFromJson: List<Cover> = Gson().fromJson(
@@ -37,8 +37,8 @@ object IGDB {
         covers = coversFromJson.associateBy{it.id}
         games = GamesFromJson.associateBy { it.id }
         genres = GenresFromJson.associateBy { it.id }
-        platform_logos = Plats_logoFromJson
-        platforms = PlatsFromJson
+        platform_logos = Plats_logoFromJson.associateBy { it.id }
+        platforms = PlatsFromJson.associateBy { it.id }
     }
 }
 

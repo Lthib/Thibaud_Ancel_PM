@@ -93,7 +93,20 @@ fun GameDetail(backStack: SnapshotStateList<Any>,id:Long, src:Map<Long,Game>){
             }
 
             item(){
-                LazyRow() { }
+                LazyRow() {
+                    items(src.get(id)!!.platforms){items->
+                        AsyncImage(
+                            model = if(IGDB.platform_logos.get(IGDB.platforms.get(items)!!.platform_logo)!=null){
+                                "https:" + IGDB.platform_logos.get(IGDB.platforms.get(items)!!.platform_logo)!!.url
+                            }else{
+                                R.drawable.baseline_no_photography_24
+                            },
+                            contentDescription = "jeu",
+                            Modifier.padding(top = 5.dp, bottom = 5.dp, start=5.dp,end = 5.dp).height(50.dp),
+                            alignment = Alignment.Center,
+                        )
+                    }
+                }
             }
 
             item(){
