@@ -32,29 +32,33 @@ import com.insa.mygameslist.data.Game
 import com.insa.mygameslist.data.IGDB
 
 @Composable
-fun GameCard(game : Game,backStack: SnapshotStateList<Any>) {
+fun GameCard(game: Game, backStack: SnapshotStateList<Any>) {
 
-    val genres:String = game.genres.filter { IGDB.genres.containsKey(it) }.map { it -> IGDB.genres.get(it)!!.name }.joinToString(" , " )
+    val genres: String =
+        game.genres.filter { IGDB.genres.containsKey(it) }.map { it -> IGDB.genres.get(it)!!.name }
+            .joinToString(" , ")
     Row(
-            Modifier.fillMaxWidth().clickable(onClick = {backStack.add(Product(game.id))})
-                .background(color = Color(136, 199, 188), shape = RoundedCornerShape(20.dp))
-        ) {
-            AsyncImage(
-                model = "https:" + IGDB.covers.get(game.cover)!!.url,
-                contentDescription = "jeu",
-                Modifier.padding(top = 10.dp, bottom = 10.dp, start = 25.dp)
+        Modifier
+            .fillMaxWidth()
+            .clickable(onClick = { backStack.add(Product(game.id)) })
+            .background(color = Color(136, 199, 188), shape = RoundedCornerShape(20.dp))
+    ) {
+        AsyncImage(
+            model = "https:" + IGDB.covers.get(game.cover)!!.url,
+            contentDescription = "jeu",
+            Modifier.padding(top = 10.dp, bottom = 10.dp, start = 25.dp)
+        )
+        Column(Modifier.padding(top = 10.dp, start = 15.dp)) {
+            Text(
+                game.name,
+                textDecoration = TextDecoration.Underline,
+                fontWeight = FontWeight.Bold,
+                overflow = TextOverflow.Ellipsis,
+                maxLines = 1
             )
-            Column(Modifier.padding(top = 10.dp, start = 15.dp)) {
-                Text(
-                    game.name,
-                    textDecoration = TextDecoration.Underline,
-                    fontWeight = FontWeight.Bold,
-                    overflow = TextOverflow.Ellipsis,
-                    maxLines = 1
-                )
-                Text(genres, overflow = TextOverflow.Ellipsis, maxLines = 1)
-            }
-
+            Text(genres, overflow = TextOverflow.Ellipsis, maxLines = 1)
         }
+
+    }
 
 }
