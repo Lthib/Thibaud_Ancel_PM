@@ -39,8 +39,8 @@ import com.insa.mygameslist.data.IGDB
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun GameDetail(backStack: SnapshotStateList<Any>,id:Long, src:Map<Long,Game>){
-    var game:Game = src.get(id)!!
+fun GameDetail(backStack: SnapshotStateList<Any>, id: Long, src: Map<Long, Game>) {
+    var game: Game = src.get(id)!!
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -49,7 +49,8 @@ fun GameDetail(backStack: SnapshotStateList<Any>,id:Long, src:Map<Long,Game>){
                     titleContentColor = Color.Black,
                 ),
                 title = {
-                    Text(game.name) },
+                    Text(game.name)
+                },
                 navigationIcon = {
                     IconButton(onClick = { backStack.removeLastOrNull() }) {
                         Icon(
@@ -65,9 +66,15 @@ fun GameDetail(backStack: SnapshotStateList<Any>,id:Long, src:Map<Long,Game>){
         contentWindowInsets = WindowInsets.systemBars,
         modifier = Modifier.fillMaxSize()
     ) { innerPadding ->
-        LazyColumn(modifier = Modifier.fillMaxWidth().padding(innerPadding), horizontalAlignment = Alignment.CenterHorizontally) {
-            item(){
-                Text(game.name,
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(innerPadding),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            item() {
+                Text(
+                    game.name,
                     textDecoration = TextDecoration.Underline,
                     fontWeight = FontWeight.Bold,
                     overflow = TextOverflow.Ellipsis,
@@ -75,45 +82,60 @@ fun GameDetail(backStack: SnapshotStateList<Any>,id:Long, src:Map<Long,Game>){
                     lineHeight = 35.sp,
                     textAlign = TextAlign.Center,
                     maxLines = 2,
-                    modifier = Modifier.padding(top = 10.dp, bottom = 10.dp))
+                    modifier = Modifier.padding(top = 10.dp, bottom = 10.dp)
+                )
             }
 
-            item(){
+            item() {
                 AsyncImage(
                     model = "https:" + IGDB.covers.get(game.cover)!!.url,
                     contentDescription = "jeu",
                     alignment = Alignment.Center,
-                    modifier = Modifier.height(250.dp).padding(top=15.dp,bottom = 5.dp)
+                    modifier = Modifier
+                        .height(250.dp)
+                        .padding(top = 15.dp, bottom = 5.dp)
                 )
             }
 
-            item(){
-                val genres:String = game.genres.filter { IGDB.genres.containsKey(it) }.map { it -> IGDB.genres.get(it)!!.name }.joinToString(" , " )
-                Text(genres, fontStyle = FontStyle.Italic, fontSize = 15.sp,modifier= Modifier.padding(top=5.dp,bottom = 5.dp), overflow = TextOverflow.Ellipsis, maxLines =1)
+            item() {
+                val genres: String = game.genres.filter { IGDB.genres.containsKey(it) }
+                    .map { it -> IGDB.genres.get(it)!!.name }.joinToString(" , ")
+                Text(
+                    genres,
+                    fontStyle = FontStyle.Italic,
+                    fontSize = 15.sp,
+                    modifier = Modifier.padding(top = 5.dp, bottom = 5.dp),
+                    overflow = TextOverflow.Ellipsis,
+                    maxLines = 1
+                )
             }
 
-            item(){
+            item() {
                 LazyRow() {
-                    items(src.get(id)!!.platforms){items->
+                    items(src.get(id)!!.platforms) { items ->
                         AsyncImage(
-                            model = if(IGDB.platform_logos.get(IGDB.platforms.get(items)!!.platform_logo)!=null){
+                            model = if (IGDB.platform_logos.get(IGDB.platforms.get(items)!!.platform_logo) != null) {
                                 "https:" + IGDB.platform_logos.get(IGDB.platforms.get(items)!!.platform_logo)!!.url
-                            }else{
+                            } else {
                                 R.drawable.baseline_no_photography_24
                             },
                             contentDescription = "jeu",
-                            Modifier.padding(top = 5.dp, bottom = 5.dp, start=5.dp,end = 5.dp).height(50.dp),
+                            Modifier
+                                .padding(top = 5.dp, bottom = 5.dp, start = 5.dp, end = 5.dp)
+                                .height(50.dp),
                             alignment = Alignment.Center,
                         )
                     }
                 }
             }
 
-            item(){
-                Text(game.summary, textAlign = TextAlign.Start, modifier = Modifier.padding(start=10.dp,end=10.dp))
+            item() {
+                Text(
+                    game.summary,
+                    textAlign = TextAlign.Start,
+                    modifier = Modifier.padding(start = 10.dp, end = 10.dp)
+                )
             }
-
-
 
 
         }

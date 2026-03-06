@@ -3,8 +3,10 @@ package com.insa.mygameslist.ui.theme
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -15,17 +17,35 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateMapOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.insa.mygameslist.R
 import com.insa.mygameslist.data.Game
+import com.insa.mygameslist.data.IGDB
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun GameCardList(src:Map<Long,Game>, modifier: Modifier,backStack: SnapshotStateList<Any>){
+fun GameCardList(
+    src: Map<Long, Game>,
+    modifier: Modifier,
+    backStack: SnapshotStateList<Any>,
+    gameViewModel: GameViewModel = viewModel()
+) {
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -34,7 +54,13 @@ fun GameCardList(src:Map<Long,Game>, modifier: Modifier,backStack: SnapshotState
                     titleContentColor = Color.Black,
                 ),
                 title = {
-                    Text("My Games List") },
+                    SearchView(
+                        state = gameViewModel.textState,
+                        placeholder = "Search here ...",
+                        modifier = modifier, onvalueChange = {
+                            gameViewModel.mutgame = gameViewModel.filteredgames
+                        })
+                },
                 navigationIcon = {
                     IconButton(onClick = { backStack.removeLastOrNull() }) {
                         Icon(
@@ -50,12 +76,22 @@ fun GameCardList(src:Map<Long,Game>, modifier: Modifier,backStack: SnapshotState
         contentWindowInsets = WindowInsets.systemBars,
         modifier = Modifier.fillMaxSize()
     ) { innerPadding ->
+        if (gameViewModel.mutgame.isEmpty()) {
+            Text(
+                "No match :(", textAlign = TextAlign.Center, modifier = Modifier
+                    .width(
+                        LocalConfiguration.current.screenWidthDp.dp
+                    )
+                    .padding(innerPadding)
+            )
+        } else {
             LazyColumn(Modifier.padding(innerPadding)) {
-                items(src.values.toList()) {
+                items(gameViewModel.mutgame.values.toList()) {
                     Spacer(Modifier.padding(2.dp))
                     GameCard(it, backStack)
                     Spacer(Modifier.padding(2.dp))
                 }
             }
         }
+    }
 }
