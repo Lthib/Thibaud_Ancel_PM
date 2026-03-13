@@ -70,8 +70,8 @@ fun GameDetail(backStack: SnapshotStateList<Any>, id: Long, src: Map<Long, Game>
         modifier = Modifier.fillMaxSize()
     ) { innerPadding ->
 
-        FavoriteButton(modifier = Modifier.padding(innerPadding),id = game.id)
-        /*
+
+
         Box(modifier = Modifier.padding(innerPadding)) {
 
             LazyColumn(
@@ -148,7 +148,21 @@ fun GameDetail(backStack: SnapshotStateList<Any>, id: Long, src: Map<Long, Game>
 
 
             }
-        }*/
+            Surface(
+
+                modifier = Modifier
+
+                    .align(Alignment.TopEnd)
+                    .padding(),
+
+                color = Color(0x00000000)
+            ) {
+                FavoriteButton(modifier = Modifier, id = game.id)
+                //Text("Res")
+            }
+
+        }
+
 
     }
 
