@@ -12,32 +12,38 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.insa.mygameslist.R
+import com.insa.mygameslist.data.IGDB
 
 @Composable
 fun FavoriteButton(
     modifier: Modifier = Modifier,
-    color: Color = Color(255, 233, 30,99)
+    color: Color = Color(255, 233, 30),
+    id : Long
+
 ) {
 
-    var isFavorite by remember { mutableStateOf(false) }
+    var isFavorite = IGDB.favs.get(id)!!
 
     IconToggleButton(
         checked = isFavorite,
         onCheckedChange = {
-            isFavorite = !isFavorite
-        }
+            IGDB.favs[id] = !isFavorite
+        },
+        modifier = modifier
     ) {
         Icon(
+
             tint = color,
             modifier = modifier.graphicsLayer {
                 scaleX = 1.3f
                 scaleY = 1.3f
             },
             painter = if (isFavorite) {
-                painterResource(R.drawable.baseline_no_photography_24)
+                painterResource(R.drawable.etoilepleine)
             } else {
-                painterResource(R.drawable.baseline_arrow_back_24)
+                painterResource(R.drawable.etoilevide)
             },
             contentDescription = null
         )

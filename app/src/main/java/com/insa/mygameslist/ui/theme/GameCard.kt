@@ -41,18 +41,21 @@ fun GameCard(game: Game, backStack: SnapshotStateList<Any>) {
     val genres: String =
         game.genres.filter { IGDB.genres.containsKey(it) }.map { it -> IGDB.genres.get(it)!!.name }
             .joinToString(" , ")
-    Row(
+    Box(
         Modifier
             .fillMaxWidth()
             .clickable(onClick = { backStack.add(Product(game.id)) })
-            .background(color = Color(136, 199, 188), shape = RoundedCornerShape(20.dp))
+            .background(color = Color(136, 199, 188), shape = RoundedCornerShape(20.dp)),
+
+
     ) {
+
         AsyncImage(
             model = "https:" + IGDB.covers.get(game.cover)!!.url,
             contentDescription = "jeu",
             Modifier.padding(top = 10.dp, bottom = 10.dp, start = 25.dp)
         )
-        Column(Modifier.padding(top = 10.dp, start = 15.dp)) {
+        Column(Modifier.padding(top = 10.dp, start = 140.dp)) {
             Text(
                 game.name,
                 textDecoration = TextDecoration.Underline,
@@ -63,13 +66,19 @@ fun GameCard(game: Game, backStack: SnapshotStateList<Any>) {
             Text(genres, overflow = TextOverflow.Ellipsis, maxLines = 1)
         }
         Surface(
-            shape = CircleShape,
+
             modifier = Modifier
-                .padding(6.dp, top = 50.dp)
-                .size(50.dp),
-            color = Color(0x77000000)
+
+                .size(50.dp)
+                .align(Alignment.BottomEnd)
+                .padding(bottom = 6.dp, end = 5.dp),
+
+            color = Color(0x00000000)
         ) {
-            FavoriteButton(modifier = Modifier.padding(8.dp))
+            FavoriteButton(modifier = Modifier, id = game.id
+
+
+                )
         }
 
     }

@@ -65,6 +65,8 @@ class MainActivity : ComponentActivity() {
         IGDB.load(this)
 
 
+
+
         enableEdgeToEdge()
         setContent {
             val backStack = remember { mutableStateListOf<Any>(Home) }

@@ -1,9 +1,12 @@
 package com.insa.mygameslist.data
 
 import android.content.Context
+import androidx.compose.runtime.mutableStateMapOf
+import androidx.compose.runtime.snapshots.SnapshotStateMap
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.insa.mygameslist.R
+import com.insa.mygameslist.ui.theme.GameViewModel
 
 object IGDB {
 
@@ -12,6 +15,8 @@ object IGDB {
     lateinit var genres: Map<Long,Genre>
     lateinit var platform_logos : Map<Long,Plat_logo>
     lateinit var platforms : Map<Long,Plat>
+
+    var favs : SnapshotStateMap<Long, Boolean> = mutableStateMapOf<Long,Boolean>()
 
     fun load(context: Context) {
         val coversFromJson: List<Cover> = Gson().fromJson(
@@ -39,6 +44,8 @@ object IGDB {
         genres = GenresFromJson.associateBy { it.id }
         platform_logos = Plats_logoFromJson.associateBy { it.id }
         platforms = PlatsFromJson.associateBy { it.id }
+        games.forEach { favs[it.key]=false }
+
     }
 }
 
