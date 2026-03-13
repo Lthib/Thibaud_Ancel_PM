@@ -69,7 +69,8 @@ fun GameCard(game: Game, backStack: SnapshotStateList<Any>) {
 
             modifier = Modifier
 
-                .size(50.dp)
+
+                .size(60.dp)
                 .align(Alignment.BottomEnd)
                 .padding(bottom = 6.dp, end = 5.dp),
 

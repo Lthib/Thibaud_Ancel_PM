@@ -24,7 +24,7 @@ fun FavoriteButton(
 
 ) {
 
-    var isFavorite = IGDB.favs.get(id)!!
+    var isFavorite = IGDB.favs.get(id) ?: false
 
     IconToggleButton(
         checked = isFavorite,
@@ -37,8 +37,8 @@ fun FavoriteButton(
 
             tint = color,
             modifier = modifier.graphicsLayer {
-                scaleX = 1.3f
-                scaleY = 1.3f
+                scaleX = 1.2f
+                scaleY = 1.2f
             },
             painter = if (isFavorite) {
                 painterResource(R.drawable.etoilepleine)

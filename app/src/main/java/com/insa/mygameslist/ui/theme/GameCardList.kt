@@ -3,6 +3,7 @@ package com.insa.mygameslist.ui.theme
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBars
@@ -79,10 +80,9 @@ fun GameCardList(
         if (gameViewModel.mutgame.isEmpty()) {
             Text(
                 "No match :(", textAlign = TextAlign.Center, modifier = Modifier
-                    .width(
-                        LocalConfiguration.current.screenWidthDp.dp
-                    )
+                    .fillMaxSize()
                     .padding(innerPadding)
+                    .padding(top = 15.dp)
             )
         } else {
             LazyColumn(Modifier.padding(innerPadding)) {

@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -27,6 +28,7 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -43,7 +45,7 @@ import com.insa.mygameslist.data.IGDB
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GameDetail(backStack: SnapshotStateList<Any>, id: Long, src: Map<Long, Game>) {
-    var game: Game = src.get(id)!!
+    var game: Game = src.get(id)!! //Dans cette classe on est sûr que l'objet existe, on se permet des simplicités
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -97,7 +99,7 @@ fun GameDetail(backStack: SnapshotStateList<Any>, id: Long, src: Map<Long, Game>
 
                 item() {
                     AsyncImage(
-                        model = "https:" + IGDB.covers.get(game.cover)!!.url,
+                        model = "https:" + IGDB.covers.get(game.cover)?.url,
                         contentDescription = "jeu",
                         alignment = Alignment.Center,
                         modifier = Modifier
@@ -108,7 +110,7 @@ fun GameDetail(backStack: SnapshotStateList<Any>, id: Long, src: Map<Long, Game>
 
                 item() {
                     val genres: String = game.genres.filter { IGDB.genres.containsKey(it) }
-                        .map { it -> IGDB.genres.get(it)!!.name }.joinToString(" , ")
+                        .joinToString(" , ") { it -> IGDB.genres.get(it)!!.name }
                     Text(
                         genres,
                         fontStyle = FontStyle.Italic,
@@ -150,6 +152,7 @@ fun GameDetail(backStack: SnapshotStateList<Any>, id: Long, src: Map<Long, Game>
             }
             Surface(
 
+                shape = RectangleShape,
                 modifier = Modifier
 
                     .align(Alignment.TopEnd)
@@ -158,7 +161,7 @@ fun GameDetail(backStack: SnapshotStateList<Any>, id: Long, src: Map<Long, Game>
                 color = Color(0x00000000)
             ) {
                 FavoriteButton(modifier = Modifier, id = game.id)
-                //Text("Res")
+
             }
 
         }
