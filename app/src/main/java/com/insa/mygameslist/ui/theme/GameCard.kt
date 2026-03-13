@@ -9,9 +9,13 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.snapshots.SnapshotStateList
@@ -57,6 +61,15 @@ fun GameCard(game: Game, backStack: SnapshotStateList<Any>) {
                 maxLines = 1
             )
             Text(genres, overflow = TextOverflow.Ellipsis, maxLines = 1)
+        }
+        Surface(
+            shape = CircleShape,
+            modifier = Modifier
+                .padding(6.dp, top = 50.dp)
+                .size(50.dp),
+            color = Color(0x77000000)
+        ) {
+            FavoriteButton(modifier = Modifier.padding(8.dp))
         }
 
     }
