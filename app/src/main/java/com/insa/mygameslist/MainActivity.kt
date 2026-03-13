@@ -5,46 +5,18 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.systemBars
-import androidx.compose.material3.Button
-import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.navigation3.runtime.NavEntry
-import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
-import coil3.compose.AsyncImage
-import coil3.imageLoader
-import com.insa.mygameslist.data.Game
 import com.insa.mygameslist.data.IGDB
-import com.insa.mygameslist.ui.theme.GameCard
 import com.insa.mygameslist.ui.theme.GameCardList
 import com.insa.mygameslist.ui.theme.GameDetail
 import com.insa.mygameslist.ui.theme.MyGamesListTheme
-import com.insa.mygameslist.ui.theme.PrevGameCard
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -77,7 +49,7 @@ class MainActivity : ComponentActivity() {
                         entryProvider = { key ->
                             when(key) {
                                 is Home -> NavEntry(key) {
-                                    GameCardList(IGDB.games, Modifier.fillMaxSize(),backStack)
+                                    GameCardList(Modifier.fillMaxSize(),backStack)
                                 }
                                 is Product -> NavEntry(key){
                                     GameDetail(backStack,key.id, IGDB.games)
