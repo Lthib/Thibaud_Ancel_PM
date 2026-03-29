@@ -29,7 +29,7 @@ data class  Product(val id: Long)
 
 @OptIn(ExperimentalMaterial3Api::class)
 class MainActivity : ComponentActivity() {
-    var nompage : String ="My Games List"
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,7 +57,7 @@ class MainActivity : ComponentActivity() {
                                 else -> NavEntry(Unit) { Text("Unknown route") }
                             }
                         })
-                    //Text("À remplir", modifier = Modifier.padding(innerPadding))
+
 
             }
         }
